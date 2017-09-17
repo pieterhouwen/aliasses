@@ -8,5 +8,5 @@ alias dir='ls -la'
 alias myip='echo My IP: ; curl http://ipecho.net/plain'
 alias mitm='bettercap -I eth0 --random-mac -D --full-duplex -X -P '*' --httpd'
 alias pipin='pip install -r requirements.txt'
-alias adit='nano ~/.bash_aliases'
-
+alias adit='CD=$(pwd); cd ~ && nano .bash_aliases && source .bash_aliases && cd $CD && echo Aliasses updated!'
+alias pieter='echo pieter'
