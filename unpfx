@@ -1,9 +1,0 @@
-#!/bin/bash
-echo This will extract the private key and cert from a PFX file.
-read -p "Please input the filename MINUS the .pfx part: " pfx
-openssl pkcs12 -in $pfx.pfx -nocerts -out $pfx.encr
-openssl rsa -in $pfx.pfx -clcerts -nokeys -out $pfx.crt
-openssl rsa -in $pfx.encr -out $pfx.key
-echo 
-Echo Finished writing $pfx.key and $pfx.crt!
-
