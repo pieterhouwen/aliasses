@@ -1,0 +1,39 @@
+#!/bin/bash
+
+funtion RTFM() {
+ echo Usage: $0 -g \[global\]
+ echo
+ echo -g \[global\] : optional parameter to install the aliasses globally by adding them to /etc/bash.bashrc
+ exit 1
+}
+
+while getopts "g" args
+ do
+  case $args in
+   g)
+    # If we want to edit /etc/bash.bashrc we need to make sure we have permission.
+    if [ $(id -u) -gt "0" ]; then
+     # We don't have permission.
+     echo You need to be root to use this option, try \"sudo\" !!
+    else
+    # Looks like we are root.
+    # We need to make sure the aliasses aren't in the /etc/bash.bashrc already.
+    # Let's search for our marker
+    if grep \#BASHA /etc/bash.bashrc >/dev/null; then
+      # Our query was succesful, this means that the content has been found.
+      echo Some additions have already been found!
+      echo Would you like to re-add all? \[Y/N\]
+      read conf
+      case $conf in
+      	Y|y)
+			# First we need to know which line our marker is.
+			line=$(nl -ba /etc/bash.bashrc | grep \#BASHA | cut -f 1)
+			# After that we need to substract 1
+			beforeadd=$(expr $line - 1)
+			# This means that the whole file is above $beforeadd
+			
+
+rm ~/.bash_aliases
+cp bash_aliases ~/.bash_aliases
+source ~/.bash_aliases
+echo Installed new aliases.
